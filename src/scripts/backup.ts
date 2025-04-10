@@ -158,4 +158,5 @@ class DatabaseBackup {
   }
 }
 
-export { DatabaseBackup, BackupConfig }; 
+export type { BackupConfig };
+export { DatabaseBackup }; 
