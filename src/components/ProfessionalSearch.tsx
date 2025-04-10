@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FiSearch, FiMapPin } from 'react-icons/fi';
 
 interface ProfessionalCardProps {
   name: string;
@@ -62,7 +63,19 @@ const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
   );
 };
 
-const ProfessionalSearch: React.FC = () => {
+interface ProfessionalSearchProps {
+  onSearchClick?: () => void;
+}
+
+export function ProfessionalSearch({ onSearchClick }: ProfessionalSearchProps) {
+  const [specialty, setSpecialty] = useState('');
+  const [location, setLocation] = useState('');
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearchClick?.();
+  };
+
   // Primeira fileira de profissionais
   const firstRowProfessionals = [
     {
@@ -128,76 +141,54 @@ const ProfessionalSearch: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div>
-            <p className="text-gray-600 mb-2">Atendimento único e especializado</p>
-            <h2 className="text-4xl font-bold text-gray-800 mb-6">Encontre um profissional</h2>
-          </div>
-          
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-grow">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Encontre o profissional ideal para você
+          </h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Busque por especialidade ou localização e conecte-se com profissionais qualificados
+          </p>
+
+          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
               <div className="relative">
+                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Buscar profissional"
-                  className="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Buscar por especialidade..."
+                  value={specialty}
+                  onChange={(e) => setSpecialty(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
               </div>
             </div>
-            
-            <div className="w-full md:w-64">
+
+            <div className="flex-1">
               <div className="relative">
-                <select className="w-full appearance-none pl-4 pr-10 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white">
-                  <option value="">Filtrar por</option>
-                  <option value="psicologia">Psicologia</option>
-                  <option value="nutricao">Nutrição</option>
-                  <option value="fisioterapia">Fisioterapia</option>
-                </select>
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </div>
+                <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Localização..."
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                />
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Primeira fileira de profissionais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {firstRowProfessionals.map((professional) => (
-            <ProfessionalCard
-              key={professional.id}
-              name={professional.name}
-              profession={professional.profession}
-              imageUrl={professional.imageUrl}
-              specialties={professional.specialties}
-            />
-          ))}
-        </div>
-        
-        {/* Segunda fileira de profissionais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {secondRowProfessionals.map((professional) => (
-            <ProfessionalCard
-              key={professional.id}
-              name={professional.name}
-              profession={professional.profession}
-              imageUrl={professional.imageUrl}
-              specialties={professional.specialties}
-            />
-          ))}
+
+            <button
+              type="submit"
+              className="px-8 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
+            >
+              Buscar
+            </button>
+          </form>
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default ProfessionalSearch; 
