@@ -1,123 +1,117 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaCheck } from 'react-icons/fa';
+import { FiCheck } from 'react-icons/fi';
 
-interface PlanFeature {
-  text: string;
+interface Plan {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  features: string[];
+  recommended?: boolean;
 }
 
 interface PricingPlanProps {
   name: string;
-  price: string;
+  price: number;
   isPopular?: boolean;
-  features: PlanFeature[];
+  features: string[];
+}
+
+interface PricingPlansProps {
+  onPlanClick?: (plan: Plan) => void;
 }
 
 const PricingPlan: React.FC<PricingPlanProps> = ({ name, price, isPopular = false, features }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md px-6 py-8 relative flex flex-col">
+    <div className={`relative p-8 bg-white rounded-lg shadow-lg ${isPopular ? 'border-2 border-primary-500' : ''}`}>
       {isPopular && (
-        <div className="absolute -top-3 left-0 w-full flex justify-center">
-          <span className="bg-orange-500 text-white px-6 py-1 rounded-full text-sm font-medium">
-            Popular
-          </span>
-        </div>
+        <span className="absolute top-0 right-0 px-3 py-1 text-sm font-semibold text-white transform translate-x-2 -translate-y-1/2 bg-primary-500 rounded-full">
+          Popular
+        </span>
       )}
-      
-      <h3 className="text-xl font-semibold text-gray-800 mb-6 mt-4 text-center">{name}</h3>
-      
-      <div className="flex flex-col items-center justify-center mb-8">
-        <div className="text-center mb-6">
-          <p className="text-green-500 text-6xl font-bold mb-0 leading-none">R$</p>
-          <p className="text-green-500 text-8xl font-bold leading-none mt-2">{price}</p>
-        </div>
-        
-        <div className="relative w-full">
-          <select className="w-full p-3 pr-10 border border-gray-300 rounded-md appearance-none bg-white text-gray-700 cursor-pointer">
-            <option>Mensal</option>
-            <option>Anual</option>
-          </select>
-          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-green-500">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      
-      <div className="flex-grow space-y-5 mb-8">
+      <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
+      <p className="mt-4">
+        <span className="text-4xl font-extrabold text-gray-900">R${price}</span>
+        <span className="text-base font-medium text-gray-500">/mês</span>
+      </p>
+      <ul className="mt-6 space-y-4">
         {features.map((feature, index) => (
-          <div key={index} className="flex items-start">
-            <div className="flex-shrink-0 text-green-500 mt-1">
-              <FaCheck />
+          <li key={index} className="flex items-start">
+            <div className="flex-shrink-0">
+              <FiCheck className="w-5 h-5 text-primary-500" />
             </div>
-            <p className="ml-3 text-gray-600">{feature.text}</p>
-          </div>
+            <p className="ml-3 text-gray-600">{feature}</p>
+          </li>
         ))}
+      </ul>
+      <div className="mt-8">
+        <Link href="/signup" className="block w-full px-6 py-3 text-base font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+          Começar agora
+        </Link>
       </div>
-      
-      <Link
-        href="/cadastro"
-        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-4 rounded-md text-center transition-colors"
-      >
-        Assinar
-      </Link>
     </div>
   );
 };
 
-const PricingPlans: React.FC = () => {
-  const plans = [
-    {
-      name: 'Plano Essential',
-      price: '60,00',
-      isPopular: true,
-      features: [
-        { text: 'Maior Visibilidade do seu trabalho' },
-        { text: 'Gestão Facilitada das consultas e pacientes' },
-        { text: 'Ambiente Colaborativo entre profissionais' },
-      ],
-    },
-    {
-      name: 'Plano Premium',
-      price: '120,00',
-      features: [
-        { text: 'Maior Visibilidade do seu trabalho' },
-        { text: 'Gestão Facilitada das consultas e pacientes' },
-        { text: 'Ambiente Colaborativo entre profissionais' },
-      ],
-    },
-    {
-      name: 'Plano Premium +',
-      price: '300,00',
-      features: [
-        { text: 'Maior Visibilidade do seu trabalho' },
-        { text: 'Gestão Facilitada das consultas e pacientes' },
-        { text: 'Ambiente Colaborativo entre profissionais' },
-      ],
-    },
-  ];
+const plans: Plan[] = [
+  {
+    id: 'basic',
+    name: 'Básico',
+    price: 99,
+    description: 'Ideal para começar',
+    features: [
+      'Até 4 consultas por mês',
+      'Chat com terapeuta',
+      'Recursos básicos da plataforma',
+      'Suporte por email'
+    ]
+  },
+  {
+    id: 'pro',
+    name: 'Profissional',
+    price: 199,
+    description: 'Para quem precisa de mais',
+    features: [
+      'Até 8 consultas por mês',
+      'Chat prioritário com terapeuta',
+      'Todos os recursos da plataforma',
+      'Suporte prioritário 24/7',
+      'Sessões de grupo inclusas'
+    ],
+    recommended: true
+  },
+  {
+    id: 'enterprise',
+    name: 'Empresarial',
+    price: 399,
+    description: 'Solução completa para empresas',
+    features: [
+      'Consultas ilimitadas',
+      'Atendimento VIP',
+      'Recursos exclusivos',
+      'Gerenciamento de equipe',
+      'Relatórios personalizados',
+      'API dedicada'
+    ]
+  }
+];
 
+export const PricingPlans: React.FC<PricingPlansProps> = ({ onPlanClick }) => {
   return (
-    <section className="py-20 bg-[#19ac76]">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white">Nossos Planos</h2>
+    <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
+      {plans.map((plan) => (
+        <div key={plan.id} onClick={() => onPlanClick?.(plan)}>
+          <PricingPlan
+            name={plan.name}
+            price={plan.price}
+            features={plan.features}
+            isPopular={plan.recommended}
+          />
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
-          {plans.map((plan, index) => (
-            <PricingPlan
-              key={index}
-              name={plan.name}
-              price={plan.price}
-              isPopular={plan.isPopular}
-              features={plan.features}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
+      ))}
+    </div>
   );
 };
 
