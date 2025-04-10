@@ -4,13 +4,13 @@ import path from 'path';
 import { createGzip } from 'zlib';
 import { pipeline } from 'stream/promises';
 
-interface BackupConfig {
+export type BackupConfig = {
   dbName: string;
   dbUser: string;
   backupDir: string;
   retentionDays: number;
   incrementalBackupHours: number;
-}
+};
 
 /**
  * Classe responsável por gerenciar backups do banco de dados
@@ -158,5 +158,4 @@ class DatabaseBackup {
   }
 }
 
-export type { BackupConfig };
 export { DatabaseBackup }; 
