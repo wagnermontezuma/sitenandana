@@ -1,82 +1,111 @@
-# Nandana - Plataforma para Terapeutas e Profissionais de Saúde
+# Nandana Terapias
 
-## 🚀 Sobre o Projeto
+Plataforma de agendamento e gestão de consultas terapêuticas.
 
-Nandana é uma plataforma web desenvolvida para conectar terapeutas e profissionais de saúde com pessoas que buscam atendimento. O projeto oferece uma interface moderna e intuitiva, facilitando o agendamento de consultas e a gestão de atendimentos.
-
-## 🛠️ Tecnologias Utilizadas
+## 🚀 Tecnologias
 
 - [Next.js 14](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
-- [React Icons](https://react-icons.github.io/react-icons/)
+- [Prismic CMS](https://prismic.io/)
+- [Jest](https://jestjs.io/)
+- [Testing Library](https://testing-library.com/)
+- [Socket.IO](https://socket.io/)
 
 ## 📋 Pré-requisitos
 
-- Node.js 18.x ou superior
+- Node.js 18+
 - npm ou yarn
+- Git
 
 ## 🔧 Instalação
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/wagnermontezuma/sitenandana.git
-cd sitenandana
+git clone https://github.com/seu-usuario/nandana-terapias.git
+cd nandana-terapias
 ```
 
 2. Instale as dependências:
 ```bash
 npm install
 # ou
-yarn install
+yarn
 ```
 
 3. Configure as variáveis de ambiente:
 ```bash
 cp .env.example .env.local
 ```
+Edite o arquivo `.env.local` com suas configurações.
 
-4. Inicie o servidor de desenvolvimento:
+4. Execute o projeto em desenvolvimento:
 ```bash
 npm run dev
 # ou
 yarn dev
 ```
 
-O projeto estará disponível em `http://localhost:3000`
-
-## 📦 Estrutura do Projeto
+## 🏗️ Estrutura do Projeto
 
 ```
 src/
 ├── components/     # Componentes React reutilizáveis
+├── contexts/       # Contextos React (auth, notificações)
+├── hooks/          # Hooks personalizados
+├── lib/           # Configurações e utilitários
 ├── pages/         # Páginas da aplicação
-├── styles/        # Estilos globais e configuração do Tailwind
-├── lib/          # Utilitários e configurações
-└── types/        # Definições de tipos TypeScript
+├── public/        # Arquivos estáticos
+├── styles/        # Estilos globais
+└── types/         # Definições de tipos TypeScript
 ```
 
-## 🌟 Funcionalidades
+## 🧪 Testes
 
-- ✨ Design responsivo e moderno
-- 📱 Interface otimizada para dispositivos móveis
-- 🔍 Busca de profissionais
-- 📅 Sistema de agendamento
-- 💼 Perfis profissionais
-- 📊 Áreas de especialização
+Execute os testes:
+```bash
+npm run test
+# ou
+yarn test
+```
 
-## 🤝 Contribuindo
+Para cobertura de testes:
+```bash
+npm run test:coverage
+# ou
+yarn test:coverage
+```
 
-1. Faça um Fork do projeto
-2. Crie uma Branch para sua Feature (`git checkout -b feature/AmazingFeature`)
-3. Faça o Commit das suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Faça o Push para a Branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+## 📦 Build e Deploy
+
+1. Build do projeto:
+```bash
+npm run build
+# ou
+yarn build
+```
+
+2. Executar em produção:
+```bash
+npm start
+# ou
+yarn start
+```
+
+## 🌐 Deploy na Vercel
+
+O projeto está configurado para deploy automático na Vercel. Cada push na branch `main` dispara um novo deploy.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fseu-usuario%2Fnandana-terapias)
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-## ✨ Autor
+## ✨ Contribuição
 
-Wagner Montezuma - [GitHub](https://github.com/wagnermontezuma) 
+1. Faça um Fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request 

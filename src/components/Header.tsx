@@ -1,9 +1,34 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import useScrollTo from '@/hooks/useScrollTo';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const scrollTo = useScrollTo();
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const isHomePage = router.pathname === '/';
+    
+    if (isHomePage) {
+      const sectionId = path.replace('/', '');
+      scrollTo(sectionId || 'hero');
+    } else {
+      router.push('/').then(() => {
+        setTimeout(() => {
+          const sectionId = path.replace('/', '');
+          scrollTo(sectionId || 'hero');
+        }, 100);
+      });
+    }
+    
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -15,6 +40,7 @@ const Header: React.FC = () => {
           href="/" 
           className="flex items-center"
           aria-label="Nandana Terapias - Página Inicial"
+          onClick={(e) => handleNavigation(e, '/')}
         >
           <div className="relative w-48 h-14">
             <Image 
@@ -29,22 +55,22 @@ const Header: React.FC = () => {
 
         {/* Menu para desktop */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, '/')}>
             Home
           </Link>
-          <Link href="/sobre-nos" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/sobre-nos" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'sobre-nos')}>
             Sobre Nós
           </Link>
-          <Link href="/terapeutas" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/terapeutas" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'terapeutas')}>
             Terapeutas e Profissionais
           </Link>
-          <Link href="/planos" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/planos" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'planos')}>
             Nossos Planos
           </Link>
-          <Link href="/perguntas-frequentes" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/perguntas-frequentes" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'perguntas-frequentes')}>
             Perguntas Frequentes
           </Link>
-          <Link href="/contato" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+          <Link href="/contato" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'contato')}>
             Contato
           </Link>
           <Link 
@@ -78,22 +104,22 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white py-4 px-4 shadow-md">
           <nav className="flex flex-col space-y-4">
-            <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, '/')}>
               Home
             </Link>
-            <Link href="/sobre-nos" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/sobre-nos" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'sobre-nos')}>
               Sobre Nós
             </Link>
-            <Link href="/terapeutas" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/terapeutas" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'terapeutas')}>
               Terapeutas e Profissionais
             </Link>
-            <Link href="/planos" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/planos" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'planos')}>
               Nossos Planos
             </Link>
-            <Link href="/perguntas-frequentes" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/perguntas-frequentes" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'perguntas-frequentes')}>
               Perguntas Frequentes
             </Link>
-            <Link href="/contato" className="text-gray-700 hover:text-green-600 font-medium transition-colors">
+            <Link href="/contato" className="text-gray-700 hover:text-green-600 font-medium transition-colors" onClick={(e) => handleNavigation(e, 'contato')}>
               Contato
             </Link>
             <Link 

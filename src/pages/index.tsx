@@ -56,7 +56,7 @@ const Home: NextPage = () => {
         <Header />
         
         <main className="flex-grow" role="main">
-          <div className="animate-fadeIn">
+          <div id="hero" className="animate-fadeIn">
             <Hero onCtaClick={() => trackCtaClick('hero_cta')} />
           </div>
           
@@ -64,11 +64,11 @@ const Home: NextPage = () => {
             <StatsSection />
           </div>
           
-          <div className="animate-fadeIn">
+          <div id="sobre-nos" className="animate-fadeIn">
             <AboutSection onCtaClick={() => trackCtaClick('about_cta')} />
           </div>
           
-          <div className="animate-slideUp">
+          <div id="terapeutas" className="animate-slideUp">
             <TalentBanner onCtaClick={() => trackCtaClick('talent_cta')} />
           </div>
           
@@ -80,7 +80,7 @@ const Home: NextPage = () => {
             <PlatformFeatures />
           </div>
           
-          <div className="animate-fadeIn">
+          <div id="planos" className="animate-fadeIn">
             <PricingPlans onPlanClick={(plan) => trackCtaClick(`pricing_${plan}`)} />
           </div>
           
@@ -88,12 +88,14 @@ const Home: NextPage = () => {
             <WhyConsult />
           </div>
           
-          <div className="animate-fadeIn">
+          <div id="perguntas-frequentes" className="animate-fadeIn">
             <FaqSection />
           </div>
-        </main>
 
-        <Footer />
+          <div id="contato">
+            <Footer />
+          </div>
+        </main>
       </div>
     </>
   );

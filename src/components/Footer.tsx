@@ -1,9 +1,31 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import useScrollTo from '@/hooks/useScrollTo';
 
 const Footer = () => {
+  const router = useRouter();
+  const scrollTo = useScrollTo();
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const isHomePage = router.pathname === '/';
+    
+    if (isHomePage) {
+      const sectionId = path.replace('/', '');
+      scrollTo(sectionId || 'hero');
+    } else {
+      router.push('/').then(() => {
+        setTimeout(() => {
+          const sectionId = path.replace('/', '');
+          scrollTo(sectionId || 'hero');
+        }, 100);
+      });
+    }
+  };
+
   return (
     <footer className="bg-white text-gray-800 pt-16 pb-8 border-t border-gray-200">
       <div className="container mx-auto px-4">
@@ -11,13 +33,15 @@ const Footer = () => {
           {/* O Nandana */}
           <div className="col-span-1 md:col-span-1 lg:col-span-1">
             <div className="mb-6">
-              <Image 
-                src="/images/logo.png" 
-                alt="Nandana Logo" 
-                width={200} 
-                height={65} 
-                className="mb-4"
-              />
+              <Link href="/" onClick={(e) => handleNavigation(e, '/')}>
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Nandana Logo" 
+                  width={200} 
+                  height={65} 
+                  className="mb-4"
+                />
+              </Link>
             </div>
             <p className="text-gray-600 text-sm mb-4">
               O Nandana é um espaço virtual que acolhe terapeutas e facilitadores 
@@ -31,27 +55,27 @@ const Footer = () => {
             <h3 className="text-lg mb-4">Home</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/sobre-nos" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/sobre-nos" className="text-gray-600 hover:text-green-600 transition-colors" onClick={(e) => handleNavigation(e, 'sobre-nos')}>
                   Sobre Nós
                 </Link>
               </li>
               <li>
-                <Link href="/terapeutas" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/terapeutas" className="text-gray-600 hover:text-green-600 transition-colors" onClick={(e) => handleNavigation(e, 'terapeutas')}>
                   Terapeutas e Profissionais
                 </Link>
               </li>
               <li>
-                <Link href="/planos" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/planos" className="text-gray-600 hover:text-green-600 transition-colors" onClick={(e) => handleNavigation(e, 'planos')}>
                   Nossos Planos
                 </Link>
               </li>
               <li>
-                <Link href="/perguntas-frequentes" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/perguntas-frequentes" className="text-gray-600 hover:text-green-600 transition-colors" onClick={(e) => handleNavigation(e, 'perguntas-frequentes')}>
                   Perguntas Frequentes
                 </Link>
               </li>
               <li>
-                <Link href="/contato" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/contato" className="text-gray-600 hover:text-green-600 transition-colors" onClick={(e) => handleNavigation(e, 'contato')}>
                   Contato
                 </Link>
               </li>

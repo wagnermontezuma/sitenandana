@@ -39,11 +39,11 @@ const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
       <div className="p-4">
         <div className="mb-4">
           <h4 className="text-green-600 font-medium mb-2">Áreas de Atuação</h4>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             {specialties.map((specialty, index) => (
               <span
                 key={index}
-                className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full"
+                className="inline-block text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full flex-shrink-0"
               >
                 {specialty}
               </span>
