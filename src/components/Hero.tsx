@@ -1,7 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
+import { FiArrowRight } from 'react-icons/fi';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onCtaClick?: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   return (
     <section className="relative min-h-[600px] flex items-center overflow-hidden">
       {/* Background com gradiente */}
@@ -48,12 +53,13 @@ const Hero: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-end">
-              <a 
-                href="/cadastro" 
-                className="px-8 py-3 bg-green-500 text-white text-center rounded-md hover:bg-green-600 transition-colors"
+              <button
+                onClick={onCtaClick}
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
               >
-                Experimente já
-              </a>
+                Agende sua consulta
+                <FiArrowRight className="ml-2 -mr-1 h-5 w-5" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>
