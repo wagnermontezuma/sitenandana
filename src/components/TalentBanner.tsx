@@ -1,8 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FiArrowRight } from 'react-icons/fi';
 
-const TalentBanner: React.FC = () => {
+interface TalentBannerProps {
+  onCtaClick?: () => void;
+}
+
+const TalentBanner: React.FC<TalentBannerProps> = ({ onCtaClick }) => {
   return (
     <section className="relative py-24 overflow-hidden bg-[#234842]">
       {/* Imagem de fundo com overlay - pode ser descomentada quando tiver a imagem real */}
@@ -30,12 +35,13 @@ const TalentBanner: React.FC = () => {
               Comece agora mesmo<br />
               a crescer com a gente
             </p>
-            <Link 
-              href="/cadastro"
-              className="inline-block bg-[#f97316] hover:bg-[#ea580c] text-white font-medium py-4 px-10 rounded-md transition-colors text-xl shadow-lg"
+            <button
+              onClick={onCtaClick}
+              className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
             >
               Fazer Meu Cadastro
-            </Link>
+              <FiArrowRight className="ml-2 -mr-1 h-6 w-6" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
